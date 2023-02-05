@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 
 	"devops/my_math"
@@ -38,5 +39,11 @@ func main() {
 			"result": my_math.Sum(number1, number2),
 		})
 	})
-	e.Logger.Fatal(e.Start(":1323"))
+
+	httpPort := os.Getenv("HTTP_PORT")
+	if httpPort == "" {
+		httpPort = "8080"
+	}
+
+	e.Logger.Fatal(e.Start(":" + httpPort))
 }
